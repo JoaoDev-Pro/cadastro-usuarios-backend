@@ -16,18 +16,20 @@ app.get('/usuarios', async (req, res) => {
 })
 
 app.post('/usuarios', async (req, res) => {
-
-    const user = await prisma.user.create({
-        data: {
-            email: req.body.email,
-            age: req.body.age,
-            name: req.body.name
-        }
-    })
-
-    console.log(user)
-
-    res.status(201).json(user)
+    try {
+        const user = await prisma.user.create({
+            data: {
+                email: req.body.email,
+                age: parseInt(req.body.age),
+                name: req.body.name
+            }
+        })
+        console.log(user)
+        res.status(201).json(user)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ error: "Erro ao criar usuário no banco." })
+    }
 })
 
 
