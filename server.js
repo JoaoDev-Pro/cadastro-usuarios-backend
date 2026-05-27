@@ -24,11 +24,12 @@ app.post('/usuarios', async (req, res) => {
                 name: req.body.name
             }
         })
+
         console.log(user)
         res.status(201).json(user)
     } catch (error) {
         console.error(error)
-        res.status(500).json({ error: "Erro ao criar usuário no banco." })
+        res.status(500).json({ error: "Erro interno no servidor ao salvar usuário." })
     }
 })
 
